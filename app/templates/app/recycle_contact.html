@@ -1,0 +1,78 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+    View Contacts | Portfolio
+{% endblock title %}
+
+{% block content %}
+<!-- CONTACT LIST SECTION -->
+<section class="py-5" style="background-color: #f0f2f5;">
+    <div class="container">
+
+        <!-- Section Header -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+            <div>
+                <h2 class="fw-bold text-primary mb-1">📇 Contact Submissions</h2>
+                <p class="text-muted mb-0">All messages sent through the contact form</p>
+            </div>
+            <div class="d-flex gap-2">
+                <a href="{% url 'restore_all_contact' %}" class="btn btn-outline-secondary">
+                    ♻️ Restore all
+                </a>
+                <a href="{% url 'clear_all_contact' %}" class="btn btn-outline-danger">
+                    <i class="fa fa-trash me-1"></i> Clear All
+                </a>
+            </div>
+        </div>
+
+        {% if contacts %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover align-middle shadow-sm bg-white rounded-4">
+                    <thead class="table-primary text-center">
+                        <tr>
+                            <th>#</th>
+                            <th>👤 Name</th>
+                            <th>📧 Email</th>
+                            <th>📱 Phone</th>
+                            <th>✉️ Message</th>
+                            <th>⚙️ Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for contact in contacts %}
+                        <tr>
+                            <td class="text-center">{{ forloop.counter }}</td>
+                            <td>{{ contact.name }}</td>
+                            <td>{{ contact.email }}</td>
+                            <td>{{ contact.contact_number }}</td>
+                            <td>{{ contact.message }}</td>
+                            <td class="text-center text-nowrap">
+                                <a href="{% url 'restore_contact' contact.id %}" class="btn btn-sm btn-outline-primary me-2">
+                                    ♻️ Restore
+                                </a>
+                                <a href="{% url 'hard_delete_contact' contact.id %}" class="btn btn-sm btn-outline-danger">
+                                    <i class="fa fa-trash me-1"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center shadow-sm rounded-4" role="alert">
+                No contacts submitted yet.
+            </div>
+        {% endif %}
+
+        <!-- BACK TO contact view BUTTON -->
+        <div class="text-center mt-5">
+            <a href="{% url 'contact_view' %}" class="btn btn-outline-dark">
+                ⬅️ Back to contact view
+            </a>
+        </div>
+
+    </div>
+</section>
+{% endblock content %}

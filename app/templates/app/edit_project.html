@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Update Certificate | My Portfolio{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background-color: #f0f2f5;">
+    <div class="container">
+        <h2 class="mb-4 text-primary"><i class="fa-regular fa-pen-to-square"></i> Update Your Project</h2>
+
+        <form action="{% url 'edit_project' data.id %}" enctype="multipart/form-data" method="POST" class="shadow p-4 rounded-4 bg-white">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label">Poject Image</label>
+                <input type="file" name="image" accept="image/*" class="form-control" required>
+                {% if data.image %}
+                    <img src="{{data.image.url}}" alt="Project Image" class="mt-2" style="width: 150px; height: auto;">
+                {% endif %}
+                    
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Project Title</label>
+                <input type="text" value="{{data.title}}" name="title" class="form-control" placeholder="Enter title" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input type="text" value="{{data.description}}" name="description" class="form-control" placeholder="Short description" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Link</label>
+                <input type="url" value="{{data.link}}" name="link" class="form-control" required>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-start align-items-center gap-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-pen-to-square"></i> Update
+                </button>
+
+                <a href="{% url 'project' %}" class="btn btn-secondary">
+                    <i class="fa fa-times me-1"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

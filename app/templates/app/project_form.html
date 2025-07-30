@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Add Certificate | My Portfolio{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background-color: #f0f2f5;">
+    <div class="container">
+        <h2 class="mb-4 text-primary">➕ Upload New Project</h2>
+
+        <form action="{% url 'project_form' %}" enctype="multipart/form-data" method="POST" class="shadow p-4 rounded-4 bg-white">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label">Poject Image</label>
+                <input type="file" name="image" accept="image/*" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Project Title</label>
+                <input type="text" name="title" class="form-control" placeholder="Enter title" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input type="text" name="description" class="form-control" placeholder="Short description" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Link</label>
+                <input type="url" name="link" class="form-control" required>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-start align-items-center gap-3">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-upload me-1"></i> Upload
+                </button>
+
+                <a href="{% url 'project' %}" class="btn btn-secondary">
+                    <i class="fa fa-times me-1"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+    Contact | Portfolio
+{% endblock title %}
+
+{% block content %}
+<!-- CONTACT SECTION -->
+<section class="py-5" style="background-color: #f8f9fa;">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-primary">Contact Me</h2>
+            <p class="text-muted">Have a project or want to work together? Let's connect!</p>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm border-0 rounded-4">
+                    <div class="card-body p-4">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ forms.as_p }}
+
+                            <div class="d-flex justify-content-end gap-2 mt-3">
+                                <button type="submit" class="btn btn-primary">
+                                    📨 Send Message
+                                </button>
+                                
+                                {% if data %}
+                                 <a href="{% url 'contact_view' %}" class="btn btn-outline-secondary">📇 View Contact</a>
+                                {% endif %}
+                                    
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

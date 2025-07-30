@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}
+    Project
+{% endblock title %}
+
+{% block content %}
+<!-- PROJECT PAGE -->
+<section class="py-5" style="background-color: #f0f2f5;">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+            <h1 class="mb-0 text-primary fw-bold">🗂️ My Projects</h1>
+            <div class="d-flex gap-2">
+                {% if data %}                   
+                 <a href="{% url 'recycle_project' %}" class="btn btn-secondary">🗑️ Recycle Bin</a>
+                {% endif %}
+                <a href="{% url 'project_form' %}" class="btn btn-success">➕ Add Project</a>
+            </div>
+        </div>
+
+        <!-- Intro Text -->
+        <p class="mb-5 text-dark">
+            Here are some of the projects I have worked on recently. Each project showcases different skills and technologies I have used.
+        </p>
+
+        <!-- Projects List -->
+        <div class="row g-4">
+            {% for project in projects %}
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card shadow-sm h-100 border-0">
+                    <!-- Project Image -->
+                    {% if project.image and project.image.name %}
+                        <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top text-center py-5 bg-light text-muted" style="height: 200px;">
+                            <i class="fa fa-image fa-2x mb-2"></i><br>
+                            No image available
+                        </div>
+                    {% endif %}
+
+                    <!-- Card Content -->
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-primary">{{ project.title }}</h5>
+                        <p class="card-text text-dark flex-grow-1">{{ project.description }}</p>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-between mt-auto gap-2">
+                            <a href="{{ project.link }}" target="_blank" class="btn btn-outline-primary btn-sm w-100">
+                                🔗 GitHub
+                            </a>
+
+                            <a href="{% url 'edit_project' project.id  %}" class="btn btn-outline-success btn-sm w-100">
+                                <i class="fa-regular fa-pen-to-square"></i> Edit
+                            </a>
+
+                            <a href="{% url 'project_soft_delete' project.id %}" class="btn btn-outline-danger btn-sm w-100">
+                                <i class="fa fa-trash me-1"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-warning text-center">
+                    <i class="fa fa-info-circle me-2"></i> No projects uploaded yet.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

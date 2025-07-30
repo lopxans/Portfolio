@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Home | Portfolio{% endblock title %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero d-flex align-items-center justify-content-center text-center text-white" style="background: linear-gradient(to right, #0f2027, #203a43, #2c5364); min-height: 100vh;">
+    <div>
+        <img src="{% static 'image/myphoto1.jpg' %}" class="rounded-circle shadow mb-3 border border-light" width="140" alt="Profile">
+        <h1 class="fw-bold display-5">Hi, I'm Sulav Tamang</h1>
+        <p class="lead">Python Django | PHP Laravel Developer</p>
+        <a href="#about" class="btn btn-outline-light mt-3">Explore More</a>
+    </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section id="about" class="container py-5" style="background-color: #f0f2f5;">
+    <div class="row align-items-center">
+        <div class="col-md-5 text-center mb-4 mb-md-0">
+            <img src="{% static 'image/myphoto2.jpg' %}" class="img-fluid rounded-3 shadow" style="max-width: 220px;" alt="About Image">
+        </div>
+        <div class="col-md-7">
+            <h2 class="text-primary mb-3">About Me</h2>
+            <p class="text-dark">
+                I’m a passionate <strong>backend developer</strong> with experience in frameworks like <strong>Django</strong> and <strong>Laravel</strong>. I specialize in building robust, secure, and scalable server-side applications while collaborating closely with frontend teams to bring ideas to life.
+            </p>
+            <ul class="list-unstyled text-dark">
+                <li>✅ Django, DRF, Python</li>
+                <li>✅ Laravel, PHP, MySQL</li>
+                <li>✅ HTML, CSS, JS, Bootstrap</li>
+                <li>✅ Web Deployment</li>
+            </ul>
+            <a href="{% url 'contact' %}" class="btn btn-primary btn-sm mt-3">Contact Me</a>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

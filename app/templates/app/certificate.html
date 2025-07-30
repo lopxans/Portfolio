@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<section class="py-5" style="background-color: #f8f9fa;">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+            <h1 class="mb-0 text-primary fw-bold">📄 My Certificates</h1>
+            <div class="d-flex gap-2">
+                {% if data %}
+                  <a href="{% url 'recycle_certificate' %}" class="btn btn-secondary ">🗑️ Recycle Bin</a>
+                {% endif %}
+                <a href="{% url 'certificate_form' %}" class="btn btn-success">➕ Add Certificate</a>
+            </div>
+        </div>
+        <p class="mb-5 text-dark">Below are some of the professional certificates I have earned, showcasing my skills and achievements in various technologies.</p>
+
+        <div class="row g-4">
+            {% for cert in Certificates %}
+            <div class="col-md-4">
+                <div class="card shadow-sm rounded-4 h-100">
+                    {% if cert.image and cert.image.name %}
+                        <img src="{{ cert.image.url }}" class="card-img-top" alt="{{ cert.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-img-top text-center py-5 bg-light text-muted" style="height: 200px;">
+                            <i class="fa fa-image fa-2x mb-2"></i><br>No image available
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">{{ cert.title }}</h5>
+                        <p class="card-text">{{ cert.description }}</p>
+                        <p class="text-muted mb-2"><strong>Issued Date:</strong> {{ cert.issued_date }}</p>
+
+                        <a href="{% url 'edit_certificate' cert.id %}" class="btn btn-outline-success btn-sm w-100">
+                            <i class="fa-regular fa-pen-to-square"></i> Edit
+                        </a>
+                        <a href="{% url 'certificate_soft_delete' cert.id %}">
+                            <button type="submit" class="btn btn-outline-danger btn-sm form-control">
+                                <i class="fa fa-trash me-1"></i> Delete
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-light text-center">
+                    <i class="fa fa-info-circle me-2"></i> No certificates uploaded yet.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
