@@ -9,11 +9,11 @@ from django.utils import timezone
 def home(request):
     return render(request, 'app/home.html')
 
-# For about 
+# About Page
 def about(request):
     return render(request, 'app/about.html')
 
-# For contact
+# Contact Page
 def contact(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
@@ -67,7 +67,7 @@ def clear_all_contact(request):
     Contact.objects.filter(is_delete=True).delete()
     return redirect('recycle_contact')
     
-# For certificate
+# Certificate Page
 def certificate(request):
     certificate = Certificate.objects.filter(is_delete=False)
     data = Certificate.objects.filter(is_delete=True)
@@ -143,7 +143,7 @@ def edit_certificate(request, id):
         return redirect('certificate')
     return render(request, 'app/edit_certificate.html', {'data': data})
 
-# For Project
+# Project Page
 def project(request):
     project = Project.objects.filter(is_delete=False)
     data = Project.objects.filter(is_delete=True)
